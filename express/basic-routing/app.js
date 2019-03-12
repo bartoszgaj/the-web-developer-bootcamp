@@ -6,21 +6,20 @@ app.get("/", function(req,res){
   res.send("Welcome");
 })
 
-app.get("/speak/pig", function(req,res){
-  res.send("Oink XD");
-})
-
-app.get("/speak/cow", function(req,res){
-  res.send("Mooo XD");
-})
-
-app.get("/speak/dog", function(req,res){
-  res.send("Woof Woof!");
-})
+app.get("/speak/:animal", function(req,res){
+  var sounds = {
+    pig: "Oink XD",
+    cow: "Mooo XD",
+    dog: "Woof Wooof"
+  }
+  var animal = req.params.animal.toLowerCase();
+  var sound = sounds[animal];
+  res.send(sound);
+});
 
 app.get("/repeat/:text/:number", function(req,res){
   var resStr = "";
-  for(var i=0; i< req.params.number; i++){
+  for(var i=0; i< Number(req.params.number); i++){
     resStr += req.params.text + " ";
   }
 
